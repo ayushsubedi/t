@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timer</title>
+</head>
+<body>
+  <div id="timer"></div>
+
+  <script>
+    // 6:30 PM NPT (UTC+5:45) on Aug 18, 2026 = 12:45:00 UTC
+    const START = new Date('2026-08-18T12:45:00Z').getTime();
+
+    function update() {
+      const elapsed = Date.now() - START;
+
+      const totalMinutes = Math.floor(elapsed / 60000);
+      const totalHours   = Math.floor(totalMinutes / 60);
+      const totalDays    = Math.floor(totalHours / 24);
+      const totalWeeks   = Math.floor(totalDays / 7);
+      const totalMonths  = Math.floor(totalDays / 30.44);
+
+      const mm = totalMinutes % 60;
+      const hh = totalHours % 24;
+      const dd = totalDays % 7;
+      const ww = totalWeeks % 4;
+
+      document.getElementById('timer').textContent =
+        `${totalMonths}mo ${ww}w ${dd}d ${hh}h ${mm}m`;
+
+      setTimeout(update, 1000);
+    }
+
+    update();
+  </script>
+</body>
+</html>
